@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         {
             file.mkdirs();
         }
-        Toast.makeText(this, "File"+file, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "File"+file, Toast.LENGTH_SHORT).show();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         File filetime = new File(file,  timestamp+"sample.txt");
         FileOutputStream os = null;
