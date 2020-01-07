@@ -16,6 +16,11 @@ import androidx.core.app.ActivityCompat;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Timestamp;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Certificate Scanner";
     TextView barcodeResult;
@@ -81,6 +86,25 @@ public class MainActivity extends AppCompatActivity {
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Log.v(TAG, "Permission: " + permissions[0] + "was " + grantResults[0]);
             //Create your Directory here
+        }
+    }
+
+    public void savefile(View view) {
+        File file = new File( getExternalCacheDir().getAbsolutePath() + File.separator+"TESTS");
+        if (!file.mkdirs())
+        {
+            file.mkdirs();
+        }
+        Toast.makeText(this, "File"+file, Toast.LENGTH_SHORT).show();
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        File filetime = new File(file,  timestamp+"sample.txt");
+        FileOutputStream os = null;
+        try {
+            os = new FileOutputStream(filetime);
+            os.write(barcodeResult.getText().toString().getBytes());
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
